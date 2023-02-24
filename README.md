@@ -38,9 +38,9 @@
 
 - PC is set to the address of the next instruction
 
-# 0_wrapper
+# 0_proc_wrapper
 
-- to abstract out all this
+- wrapper to abstract out all this
 
 
 ----------------------------------------------------
