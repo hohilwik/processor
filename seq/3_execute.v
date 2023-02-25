@@ -1,21 +1,22 @@
 `timescale 1ns / 1ps
 
 // include stuff
+`include "./alu/alu.v"
 
-module execute_ins(
-	input clk, 
-	input [3:0] icode,
-	input [3:0] ifun,
-	input reg vflag,
-	input [63:0] valA,
-	input [63:0] valB,
-	input [63:0] valC,
-	output reg [63:0] valE,
-	output reg cnd,
-	output reg zflag,
-	output reg sflag,
-	output reg oflag
-	);
+module execute_ins; //(
+	input clk; 
+	input [3:0] icode;
+	input [3:0] ifun;
+	input reg vflag;
+	input [63:0] valA;
+	input [63:0] valB;
+	input [63:0] valC;
+	output reg [63:0] valE;
+	output reg cnd;
+	output reg zflag;
+	output reg sflag;
+	output reg oflag;
+	//);
 	
 reg a_sf;
 reg b_sf;

@@ -1,36 +1,39 @@
 `timescale 1ns/ 1ps
 
-module fetch_ins(
-	input clk,
-	input [63:0] PC,
-	output reg [3:0] icode,
-	output reg [3:0] ifun,
-	output reg [3:0] rA,
-	output reg [3:0] rB,
-	output reg [63:0] valC,
-	output reg [63:0] valP,
-	output reg instr_validity,
-	output reg imem_error,
-	output reg hlt
-	};
-	
+module fetch_ins; //(
+	input clk;
+	input [63:0] PC;
+	output reg [3:0] icode;
+	output reg [3:0] ifun;
+	output reg [3:0] rA;
+	output reg [3:0] rB;
+	output reg [63:0] valC;
+	output reg [63:0] valP;
+	output reg instr_validity;
+	output reg imem_error;
+	output reg hlt;
 	reg [7:0] proc_mem[0:4095];
+	//};
+	
+	//reg [7:0] proc_mem[0:4095];
 	reg [0:79] instr; // max instruction length is 10 bytes
 	
 	// placeholder for scanf simplicity
-	reg [0:7] buffer[0:2047];
+	reg [0:7] buffer[0:4095];
 	
 	
 	integer asm_bin_p; // file pointer for binary file
+	integer iterlines=0, iterbits=0;
+	integer ii=0;
+	   
 	
 	initial begin
 	   // read from binary file and load into memory
 	   
-	   integer iterlines=0, iterbits=0;
-	   integer ii=0;
 	   
 	   asm_bin_p = $fopen("prog_binary.out", r);
-	   while( !feof(asm_bin_p) ) begin
+	   while( !feof(asm_bin_p) ) 
+	   begin
 			$fscanf(asm_file_p, "%b", buffer[iterlines][iterbits]);
 			iterbits=iterbits+1;
 			if(iterbits>=8) 
@@ -53,7 +56,7 @@ module fetch_ins(
 	begin
 		
 		imem_error=0;
-		if(PC>2047)
+		if(PC>4095)
 		begin
 			imem_error=1;
 		end

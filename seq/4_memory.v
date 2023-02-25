@@ -1,16 +1,16 @@
 `timescale 1ns / 1ps
 
-module memory(
-	input clk,
-	input [3:0] icode,
-	input [63:0] valA,
-	input [63:0] valB,
-	input [63:0] valE,
-	input [63:0] valP,
-	output reg [63:0] valM,
-	output reg [63:0] readback,
-	reg [7:0] proc_mem[0:4095]
-	);
+module memory;//(
+	input clk;
+	input [3:0] icode;
+	input [63:0] valA;
+	input [63:0] valB;
+	input [63:0] valE;
+	input [63:0] valP;
+	output reg [63:0] valM;
+	output reg [63:0] readback;
+	reg [7:0] proc_mem[0:4095];
+	//);
 	
 	integer marker;
 	reg [63:0] valpass;
@@ -88,3 +88,4 @@ module memory(
 	
 	end
 	
+endmodule
