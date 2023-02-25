@@ -14,7 +14,7 @@ module fetch_ins(
 	output reg hlt
 	};
 	
-	reg [7:0] proc_mem[0:2047];
+	reg [7:0] proc_mem[0:4095];
 	reg [0:79] instr; // max instruction length is 10 bytes
 	
 	// placeholder for scanf simplicity
