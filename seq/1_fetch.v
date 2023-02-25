@@ -17,6 +17,7 @@ module fetch_ins(clk, PC, icode, ifun, rA, rB, valC, valP, instr_validity, imem_
 	
 	//reg [7:0] proc_mem[0:4095];
 	reg [0:79] instr; // max instruction length is 10 bytes
+	reg [79:0] instr2;
 	
 	// placeholder for scanf simplicity
 	reg [0:7] buffer[0:4095];
@@ -28,15 +29,33 @@ module fetch_ins(clk, PC, icode, ifun, rA, rB, valC, valP, instr_validity, imem_
 	integer status;
 	reg tempbit;
 	
+	//integer index;
+	//initial $readmemb("prog_bin.out",proc_mem);
+	//always @index DATA_REG = memory[index];
+	
 	initial begin
+		//$display("%x", buffer[0]);
 	   // read from binary file and load into memory
 	   
-	   //$readmemb("prog_binary.out", proc_mem);
+	   //$readmemb("prog_binary.out", buffer);
+	   //while(ii<20)
+	   //begin
+		//$display("%8b", buffer[ii]);
+		//ii = ii+1;
+	   //end
+	   //while(ii<190)
+	   //begin
+		//  proc_mem[ii] = buffer[ii];
+	   //end
 	   
-	   //asm_bin_p = $fopen("prog_binary.out", "r");
+	   //asm_bin_p = $fopen("prog_bin.out", "r");
 	   //while( !$feof(asm_bin_p) ) 
 	   //begin
-			//status = $fscanf(asm_bin_p, "%8b", proc_mem[ii]);
+			
+			//status = $fscanf(asm_bin_p, "%b", buffer[0]);
+			//$display("%b", buffer[0]);
+			//proc_mem[ii] = buffer[0];
+			//ii = ii+1;
 			//proc_mem[ii] = buffer[ii];
 			//ii = ii+1;
 			//$fscanf(asm_bin_p, "%b", tempbit);
@@ -54,20 +73,112 @@ module fetch_ins(clk, PC, icode, ifun, rA, rB, valC, valP, instr_validity, imem_
 		//	proc_mem[ii] = buffer[ii];
 		//	ii = ii+1;
 		//end
+		/*
 		proc_mem[0] = 8'h30;
 		proc_mem[1] = 8'hf4;
 		proc_mem[2] = 8'h00;
 		proc_mem[3] = 8'h01;
 		proc_mem[4] = 8'h00;
 		proc_mem[5] = 8'h00;
-		proc_mem[6] = 8'h30;
-		proc_mem[7] = 8'hf5;
+		proc_mem[6] = 8'h00;
+		proc_mem[7] = 8'h00;
 		proc_mem[8] = 8'h00;
-		proc_mem[9] = 8'h01;
-		proc_mem[10] = 8'h0;
-		proc_mem[11] = 8'h0;
-		proc_mem[12] = 8'b0;
-		proc_mem[4095] = 8'b0;
+		proc_mem[9] = 8'h00;
+		proc_mem[10] = 8'h00;
+		proc_mem[11] = 8'h00;
+		proc_mem[12] = 8'h00;
+		proc_mem[13] = 8'h00;
+		proc_mem[14] = 8'h00;
+		*/
+		
+		
+		
+		proc_mem[0] = 8'h30;
+		proc_mem[1] = 8'hf4;
+		proc_mem[2] = 8'h00;
+		proc_mem[3] = 8'h01;
+		proc_mem[4] = 8'h00;
+		proc_mem[5] = 8'h00;
+		proc_mem[6] = 8'h00;
+		proc_mem[7] = 8'h00;
+		proc_mem[8] = 8'h00;
+		proc_mem[9] = 8'h00;
+		proc_mem[10] = 8'h30;
+		proc_mem[11] = 8'hf5;
+		proc_mem[12] = 8'h00;
+		proc_mem[13] = 8'h01;
+		proc_mem[14] = 8'h00;
+		proc_mem[15] = 8'h00;
+		proc_mem[16] = 8'h00;
+		proc_mem[17] = 8'h00;
+		proc_mem[18] = 8'h00;
+		proc_mem[19] = 8'h00;
+		proc_mem[20] = 8'h80;
+		proc_mem[21] = 8'h40;
+		proc_mem[22] = 8'h00;
+		proc_mem[23] = 8'h00;
+		proc_mem[24] = 8'h00;
+		proc_mem[25] = 8'h00;
+		proc_mem[26] = 8'h00;
+		proc_mem[27] = 8'h00;
+		proc_mem[28] = 8'h00;
+		proc_mem[29] = 8'h00;
+		proc_mem[30] = 8'h00;
+		proc_mem[31] = 8'h00;
+		proc_mem[32] = 8'h0d;
+		proc_mem[33] = 8'h00;
+		proc_mem[34] = 8'h00;
+		proc_mem[35] = 8'h00;
+		proc_mem[36] = 8'h00;
+		proc_mem[37] = 8'h00;
+		proc_mem[38] = 8'h00;
+		proc_mem[39] = 8'h00;
+		proc_mem[40] = 8'hc0;
+		proc_mem[41] = 8'h00;
+		proc_mem[42] = 8'h00;
+		proc_mem[43] = 8'h00;
+		proc_mem[44] = 8'h00;
+		proc_mem[45] = 8'h00;
+		proc_mem[46] = 8'h00;
+		proc_mem[47] = 8'h00;
+		proc_mem[48] = 8'h00;
+		proc_mem[49] = 8'h0b;
+		proc_mem[50] = 8'h00;
+		proc_mem[51] = 8'h00;
+		proc_mem[52] = 8'h00;
+		proc_mem[53] = 8'h00;
+		proc_mem[54] = 8'h00;
+		proc_mem[55] = 8'h00;
+		proc_mem[56] = 8'h00;
+		proc_mem[57] = 8'ha0;
+		proc_mem[58] = 8'h00;
+		proc_mem[59] = 8'h00;
+		proc_mem[60] = 8'h00;
+		proc_mem[61] = 8'h00;
+		proc_mem[62] = 8'h00;
+		proc_mem[63] = 8'h00;
+		proc_mem[64] = 8'ha0;
+		proc_mem[65] = 8'h5f;
+		proc_mem[66] = 8'h20;
+		proc_mem[67] = 8'h45;
+		proc_mem[68] = 8'h30;
+		proc_mem[69] = 8'hf0;
+		proc_mem[70] = 8'h04;
+		proc_mem[71] = 8'h00;
+		proc_mem[72] = 8'h00;
+		proc_mem[73] = 8'h00;
+		proc_mem[74] = 8'h00;
+		proc_mem[75] = 8'h00;
+		proc_mem[76] = 8'h00;
+		proc_mem[77] = 8'h00;
+		proc_mem[78] = 8'h00;
+		proc_mem[79] = 8'h00;
+		proc_mem[80] = 8'h00;
+		proc_mem[81] = 8'h00;
+		
+		
+		
+		//proc_mem[4095] = 8'b0;
 		//proc_mem[0] = 8'h
 		//proc_mem[0] = 8'h
 		//proc_mem[0] = 8'h
@@ -95,6 +206,8 @@ module fetch_ins(clk, PC, icode, ifun, rA, rB, valC, valP, instr_validity, imem_
 			imem_error=1;
 		end
 		
+		
+		
 		instr = {
 			proc_mem[PC],
 			proc_mem[PC+1],
@@ -107,6 +220,22 @@ module fetch_ins(clk, PC, icode, ifun, rA, rB, valC, valP, instr_validity, imem_
 			proc_mem[PC+8],
 			proc_mem[PC+9]
 			};
+		
+		instr2 = {
+			proc_mem[PC+9],
+			proc_mem[PC+8],
+			proc_mem[PC+7],
+			proc_mem[PC+6],
+			proc_mem[PC+5],
+			proc_mem[PC+4],
+			proc_mem[PC+3],
+			proc_mem[PC+2],
+			proc_mem[PC+1],
+			proc_mem[PC]
+			};
+				
+			
+		$display("instr=%x", instr);
 		
 		icode = instr[0:3]; // high nibble
 		ifun = instr[4:7]; //low nibble
@@ -137,7 +266,7 @@ module fetch_ins(clk, PC, icode, ifun, rA, rB, valC, valP, instr_validity, imem_
 		begin
 			rA = instr[8:11]; // register number
 			rB = instr[12:15]; // register number
-			valC = instr[16:79];
+			valC = instr2[79:16];
 			valP = PC+64'd10;
 		end
 		// rmmov 0x40
@@ -145,7 +274,7 @@ module fetch_ins(clk, PC, icode, ifun, rA, rB, valC, valP, instr_validity, imem_
 		begin
 			rA = instr[8:11]; // register number
 			rB = instr[12:15]; // register number
-			valC = instr[16:79];
+			valC = instr2[79:16];
 			valP = PC+64'd10;
 		end
 		// mrmov 0x50
@@ -153,7 +282,7 @@ module fetch_ins(clk, PC, icode, ifun, rA, rB, valC, valP, instr_validity, imem_
 		begin
 			rA = instr[8:11]; // register number
 			rB = instr[12:15]; // register number
-			valC = instr[16:79];
+			valC = instr2[79:16];
 			valP = PC+64'd10;
 		end
 		// OP 0x6Fn	
@@ -166,14 +295,14 @@ module fetch_ins(clk, PC, icode, ifun, rA, rB, valC, valP, instr_validity, imem_
 		// jXX 0x7Fn	
 		else if(icode==4'b0111)
 		begin
-			valC = instr[8:71];
+			valC = instr2[71:8];
 			valP = PC+64'd9;
 		end
 		// call 0x80
 		else if(icode==4'b1000)
 		begin
-			valC = instr[8:71];
-			valP = PC+64'd9;
+			valC = instr2[71:8];
+			valP = instr[8:15];//PC+64'd9;
 		end
 		// ret 0x90	
 		else if(icode==4'b1001)
@@ -198,7 +327,7 @@ module fetch_ins(clk, PC, icode, ifun, rA, rB, valC, valP, instr_validity, imem_
 			instr_validity=1'b0;
 		end
 		
-		
+		$display("rA=%d, rB=%d, valP=%d", rA, rB, valP);
 		
 	
 	

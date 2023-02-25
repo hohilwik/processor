@@ -173,15 +173,21 @@ always #2 clk=~clk;
 
 initial begin
 	$dumpfile("0_proc_wrapper.vcd");
+	//$monitor("instr=%b", fetch1.instr);
 	$monitor("clk=%d icode=%d ifun=%d rA=%d rB=%d r4=%d r5=%d valE=%d halt=%d\n", clk, icode, ifun, rA, rB, reg_mem4, reg_mem5, valE, status[2]);
 	status[0] = 1'b1;
 	status[1] = 1'b0;
 	status[2] = 1'b0;
 	clk = 0;
 	PC = 64'b0;
+	//valA = 64'b0;
+	//valB = 64'b0;
+	//valC = 64'b0;
+	//valE = 64'b0;
+	//valM = 64'b0;
 end
 
-always@(*)
+always@(posedge clk)
 begin
 	
 	// lifeblood of a processor

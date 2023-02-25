@@ -9,7 +9,7 @@ module memory(clk, icode, valA, valB, valE, valP, valM, readback);//(
 	input [63:0] valP;
 	output reg [63:0] valM;
 	output reg [63:0] readback;
-	reg [7:0] proc_mem[0:4095];
+	reg [7:0] data_mem[0:4095];
 	//);
 	
 	integer marker;
@@ -58,27 +58,27 @@ module memory(clk, icode, valA, valB, valE, valP, valM, readback);//(
 		if(marker==1)
 		begin
 			//datamem[valE]=valA
-			proc_mem[valE]   = valpass[63:56];
-			proc_mem[valE+1] = valpass[55:48];
-			proc_mem[valE+2] = valpass[47:40];
-			proc_mem[valE+3] = valpass[39:32];
-			proc_mem[valE+4] = valpass[31:24];
-			proc_mem[valE+5] = valpass[23:16];
-			proc_mem[valE+6] = valpass[15:8];
-			proc_mem[valE+7] = valpass[7:0];
+			data_mem[valE]   = valpass[63:56];
+			data_mem[valE+1] = valpass[55:48];
+			data_mem[valE+2] = valpass[47:40];
+			data_mem[valE+3] = valpass[39:32];
+			data_mem[valE+4] = valpass[31:24];
+			data_mem[valE+5] = valpass[23:16];
+			data_mem[valE+6] = valpass[15:8];
+			data_mem[valE+7] = valpass[7:0];
 		end
 		else if(marker==0)
 		begin
 			//valM=datamem[valE]
 			valM = {
-			proc_mem[valpass],
-			proc_mem[valpass+1],
-			proc_mem[valpass+2],
-			proc_mem[valpass+3],
-			proc_mem[valpass+4],
-			proc_mem[valpass+5],
-			proc_mem[valpass+6],
-			proc_mem[valpass+7]
+			data_mem[valpass],
+			data_mem[valpass+1],
+			data_mem[valpass+2],
+			data_mem[valpass+3],
+			data_mem[valpass+4],
+			data_mem[valpass+5],
+			data_mem[valpass+6],
+			data_mem[valpass+7]
 			};
 			
 		end

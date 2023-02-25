@@ -174,7 +174,7 @@ always@(*) begin
 		else if(icode==4'b0100)
 		begin
 			 valE = valB+valC;
-			//control = 2'b00
+			//control = 2'b00;
 			//a = valC;
 			//b = valB;
 			//assign tempans = aluOut;
@@ -183,12 +183,12 @@ always@(*) begin
 		//mrmovq
 		else if(icode==4'b0101)
 		begin
-			// valE = valB+valC
-			control = 2'b00;
-			a = valC;
-			b = valB;
-			assign tempans = aluOut;
-			valE = tempans;
+			 valE = valB+valC;
+			//control = 2'b00;
+			//a = valC;
+			//b = valB;
+			//assign tempans = aluOut;
+			//valE = tempans;
 		end
 		//OP
 		else if(icode==4'b0110)
@@ -282,12 +282,12 @@ always@(*) begin
 		//call
 		else if(icode==4'b1000)
 		begin
-			// valE = valB-64'd8
-			control = 2'b01;
-			a = valB;
-			b = 64'd8;
-			assign tempans = aluOut;
-			valE = tempans;
+			 valE = valB-64'd8;
+			//control = 2'b01;
+			//a = valB;
+			//b = 64'd8;
+			//assign tempans = aluOut;
+			//valE = tempans;
 		end
 		//ret
 		else if(icode==4'b1001)

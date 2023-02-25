@@ -30,6 +30,24 @@ module decode_ins(clk, cnd, icode, rA, rB, valA, valB, vflag, valE, valM, reg_me
 
   // lil buffer
   reg [63:0] reg_mem[0:14];
+  
+  initial begin
+	reg_mem[0]=64'd0;
+    reg_mem[1]=64'd1;
+    reg_mem[2]=64'd2;
+    reg_mem[3]=64'd3;
+    reg_mem[4]=64'd4;
+    reg_mem[5]=64'd5;
+    reg_mem[6]=64'd6;
+    reg_mem[7]=64'd7;
+    reg_mem[8]=64'd8;
+    reg_mem[9]=64'd9;
+    reg_mem[10]=64'd10;
+    reg_mem[11]=64'd11;
+    reg_mem[12]=64'd12;
+    reg_mem[13]=64'd13;
+    reg_mem[14]=64'd14;
+  end
 
   always@(*)
   begin

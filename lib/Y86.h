@@ -2,7 +2,7 @@
 #define _Y86ASM_
 
 typedef int sval_t;
-typedef unsigned int val_t;
+typedef unsigned long long int val_t;
 typedef unsigned char reg_t;
 typedef unsigned char ins_t;
 typedef unsigned char byte;

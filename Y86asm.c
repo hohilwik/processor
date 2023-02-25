@@ -135,8 +135,8 @@ static val_t parse_number(const char *str)
 	if (str[0] == '\0')
 		return 0;
 
-	sscanf(str, "%d", &dec);
-	sscanf(str, "%x", &hex);
+	sscanf(str, "%lld", &dec);
+	sscanf(str, "%llx", &hex);
 
 	return dec == 0 ? hex : dec;
 }
