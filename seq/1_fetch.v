@@ -1,6 +1,6 @@
 `timescale 1ns/ 1ps
 
-module fetch_ins; //(
+module fetch_ins(clk, PC, icode, ifun, rA, rB, valC, valP, instr_validity, imem_error, hlt, proc_mem); //(
 	input clk;
 	input [63:0] PC;
 	output reg [3:0] icode;
@@ -12,7 +12,7 @@ module fetch_ins; //(
 	output reg instr_validity;
 	output reg imem_error;
 	output reg hlt;
-	reg [7:0] proc_mem[0:4095];
+	output reg [7:0] proc_mem[0:4095];
 	//};
 	
 	//reg [7:0] proc_mem[0:4095];
@@ -25,34 +25,68 @@ module fetch_ins; //(
 	integer asm_bin_p; // file pointer for binary file
 	integer iterlines=0, iterbits=0;
 	integer ii=0;
-	   
+	integer status;
+	reg tempbit;
 	
 	initial begin
 	   // read from binary file and load into memory
 	   
+	   //$readmemb("prog_binary.out", proc_mem);
 	   
-	   asm_bin_p = $fopen("prog_binary.out", r);
-	   while( !feof(asm_bin_p) ) 
-	   begin
-			$fscanf(asm_file_p, "%b", buffer[iterlines][iterbits]);
-			iterbits=iterbits+1;
-			if(iterbits>=8) 
-			begin
-				iterlines=iterlines+1;
-				iterbits=0;
-			end
+	   //asm_bin_p = $fopen("prog_binary.out", "r");
+	   //while( !$feof(asm_bin_p) ) 
+	   //begin
+			//status = $fscanf(asm_bin_p, "%8b", proc_mem[ii]);
+			//proc_mem[ii] = buffer[ii];
+			//ii = ii+1;
+			//$fscanf(asm_bin_p, "%b", tempbit);
+			//buffer[iterlines][iterbits] = tempbit;
+			//iterbits=iterbits+1;
+			//if(iterbits>=8) 
+			//begin
+			//	iterlines=iterlines+1;
+			//	iterbits=0;
+			//end
 				
-		end
+		//end
+		//while(ii<=2000)
+		//begin
+		//	proc_mem[ii] = buffer[ii];
+		//	ii = ii+1;
+		//end
+		proc_mem[0] = 8'h30;
+		proc_mem[1] = 8'hf4;
+		proc_mem[2] = 8'h00;
+		proc_mem[3] = 8'h01;
+		proc_mem[4] = 8'h00;
+		proc_mem[5] = 8'h00;
+		proc_mem[6] = 8'h30;
+		proc_mem[7] = 8'hf5;
+		proc_mem[8] = 8'h00;
+		proc_mem[9] = 8'h01;
+		proc_mem[10] = 8'h0;
+		proc_mem[11] = 8'h0;
+		proc_mem[12] = 8'b0;
+		proc_mem[4095] = 8'b0;
+		//proc_mem[0] = 8'h
+		//proc_mem[0] = 8'h
+		//proc_mem[0] = 8'h
+		//proc_mem[0] = 8'h
+		//proc_mem[0] = 8'h
+		//proc_mem[0] = 8'h
+		//proc_mem[0] = 8'h
+		//proc_mem[0] = 8'h
+		//proc_mem[0] = 8'h
+		//proc_mem[0] = 8'h
+		//proc_mem[0] = 8'h
+		//proc_mem[0] = 8'h
+		//proc_mem[0] = 8'h
+		//proc_mem[0] = 8'h
 		
-		while(ii<=iterlines)
-		begin
-			proc_mem[ii] = buffer[ii];
-			ii = ii+1;
-		end
 		
 	end
 	
-	always@(posedge clk)
+	always@(*)
 	begin
 		
 		imem_error=0;

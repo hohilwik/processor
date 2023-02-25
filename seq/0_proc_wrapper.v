@@ -51,7 +51,7 @@ module proc;
 	wire zflag;
 	wire oflag;
 	
-	wire [7:0] proc_mem[0:4095];
+	reg [7:0] proc_mem[0:4095];
 	
 //module fetch_ins
 //module decode_ins
@@ -66,13 +66,13 @@ fetch_ins fetch1(
 	.icode(icode),
 	.ifun(ifun),
 	.rA(rA),
-	.rb(rB),
+	.rB(rB),
 	.valC(valC),
 	.valP(valP),
 	.instr_validity(instr_validity),
 	.imem_error(imem_error),
-	.hlt(hltins),
-	.proc_mem(proc_mem)
+	.hlt(hltins)
+	, .proc_mem(proc_mem)
 	);
 
 decode_ins decode1(
@@ -127,8 +127,8 @@ memory memory1(
 	.valE(valE),
 	.valP(valP),
 	.valM(valM),
-	.readback(readback),
-	.proc_mem(proc_mem)
+	.readback(readback)
+	//, .proc_mem(proc_mem)
 	);
 
 write_back wb1(
@@ -172,18 +172,21 @@ pc_update pc_update1(
 always #2 clk=~clk;
 
 initial begin
-	$dumpfile("seq_proc.vcd");
-	status[0] = 1;
-	status[1] = 0;
-	status[2] = 0;
+	$dumpfile("0_proc_wrapper.vcd");
+	$monitor("clk=%d icode=%d ifun=%d rA=%d rB=%d r4=%d r5=%d valE=%d halt=%d\n", clk, icode, ifun, rA, rB, reg_mem4, reg_mem5, valE, status[2]);
+	status[0] = 1'b1;
+	status[1] = 1'b0;
+	status[2] = 1'b0;
 	clk = 0;
 	PC = 64'b0;
 end
 
 always@(*)
 begin
+	
 	// lifeblood of a processor
 	PC = updated_PC;
+	
 	// error handling
 	if(hltins) // halt or not
 	begin
@@ -209,9 +212,6 @@ begin
 	end
 	
 end
-
-initial 
-	$monitor("clk=%d icode=%d ifun=%d rA=%d rB=%d valE=%d halt=%d\n", clk, icode, ifun, rA, rB, valE, status[2]);
 
 endmodule
 

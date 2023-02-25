@@ -1,29 +1,29 @@
-module write_back(
-  input clk,
-  input cnd,
-  input [3:0] icode,
-  input [3:0] rA,
-  input [3:0] rB,
-  output reg [63:0] valA,
-  output reg [63:0] valB,
-  input reg [63:0] valE,
-  input reg [63:0] valM,
-  output reg [63:0] reg_mem0,
-  output reg [63:0] reg_mem1,
-  output reg [63:0] reg_mem2,
-  output reg [63:0] reg_mem3,
-  output reg [63:0] reg_mem4,
-  output reg [63:0] reg_mem5,
-  output reg [63:0] reg_mem6,
-  output reg [63:0] reg_mem7,
-  output reg [63:0] reg_mem8,
-  output reg [63:0] reg_mem9,
-  output reg [63:0] reg_mem10,
-  output reg [63:0] reg_mem11,
-  output reg [63:0] reg_mem12,
-  output reg [63:0] reg_mem13,
-  output reg [63:0] reg_mem14
-);
+module write_back(clk, cnd, icode, rA, rB, valA, valB, valE, valM, reg_mem0, reg_mem1, reg_mem2, reg_mem3, reg_mem4, reg_mem5, reg_mem6, reg_mem7, reg_mem8, reg_mem9, reg_mem10, reg_mem11, reg_mem12, reg_mem13, reg_mem14); //(
+  input clk;
+  input cnd;
+  input [3:0] icode;
+  input [3:0] rA;
+  input [3:0] rB;
+  output reg [63:0] valA;
+  output reg [63:0] valB;
+  output reg [63:0] valE;
+  output reg [63:0] valM;
+  output reg [63:0] reg_mem0;
+  output reg [63:0] reg_mem1;
+  output reg [63:0] reg_mem2;
+  output reg [63:0] reg_mem3;
+  output reg [63:0] reg_mem4;
+  output reg [63:0] reg_mem5;
+  output reg [63:0] reg_mem6;
+  output reg [63:0] reg_mem7;
+  output reg [63:0] reg_mem8;
+  output reg [63:0] reg_mem9;
+  output reg [63:0] reg_mem10;
+  output reg [63:0] reg_mem11;
+  output reg [63:0] reg_mem12;
+  output reg [63:0] reg_mem13;
+  output reg [63:0] reg_mem14;
+//);
 
   // lil buffer
   reg [63:0] reg_mem[0:14];

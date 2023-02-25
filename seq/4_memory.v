@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module memory;//(
+module memory(clk, icode, valA, valB, valE, valP, valM, readback);//(
 	input clk;
 	input [3:0] icode;
 	input [63:0] valA;
@@ -62,7 +62,7 @@ module memory;//(
 			proc_mem[valE+1] = valpass[55:48];
 			proc_mem[valE+2] = valpass[47:40];
 			proc_mem[valE+3] = valpass[39:32];
-			proc_mem[valE+4] = valpass[31:34];
+			proc_mem[valE+4] = valpass[31:24];
 			proc_mem[valE+5] = valpass[23:16];
 			proc_mem[valE+6] = valpass[15:8];
 			proc_mem[valE+7] = valpass[7:0];
@@ -83,7 +83,7 @@ module memory;//(
 			
 		end
 		
-		readback = valM;
+		//readback = valM;
 	
 	
 	end

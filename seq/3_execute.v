@@ -3,11 +3,11 @@
 // include stuff
 `include "./alu/alu.v"
 
-module execute_ins; //(
+module execute_ins(clk, icode, ifun, vflag, valA, valB, valC, valE, cnd, zflag, sflag, oflag); //(
 	input clk; 
 	input [3:0] icode;
 	input [3:0] ifun;
-	input reg vflag;
+	output reg vflag;
 	input [63:0] valA;
 	input [63:0] valB;
 	input [63:0] valC;
@@ -38,11 +38,11 @@ always @(*)
 	end
 
 
-initial begin
-	zflag = 0;
-	sflag = 0;
-	oflag = 0;
-end
+//initial begin
+	//zflag = 0;
+	//sflag = 0;
+	//oflag = 0;
+//end
 
 reg signed [63:0] tempans;
 reg [1:0] control;
@@ -71,6 +71,9 @@ and gate3(Aout, Ain1, Ain2);
 not gate4(Nout, Nin1);
 
 initial begin
+	zflag = 0;
+	sflag = 0;
+	oflag = 0;
 	control=2'b00;
 	a = 64'b0;
 	b = 64'b0;
@@ -170,21 +173,21 @@ always@(*) begin
 		//rmmovq
 		else if(icode==4'b0100)
 		begin
-			// valE = valB+valC
-			control = 2'b00
-			a = valC;
-			b = valB;
-			assign tempans = aluOut;
-			valE = tempans;
+			 valE = valB+valC;
+			//control = 2'b00
+			//a = valC;
+			//b = valB;
+			//assign tempans = aluOut;
+			//valE = tempans;
 		end
 		//mrmovq
-		else if(icode==4'b)
+		else if(icode==4'b0101)
 		begin
 			// valE = valB+valC
 			control = 2'b00;
 			a = valC;
 			b = valB;
-			assign tempans = aluOut
+			assign tempans = aluOut;
 			valE = tempans;
 		end
 		//OP
@@ -277,40 +280,40 @@ always@(*) begin
 
 		end
 		//call
-		else if(icode==4b'1000)
+		else if(icode==4'b1000)
 		begin
 			// valE = valB-64'd8
-			control = 2b'01;
+			control = 2'b01;
 			a = valB;
 			b = 64'd8;
 			assign tempans = aluOut;
 			valE = tempans;
 		end
 		//ret
-		else if(icode==4b'1001)
+		else if(icode==4'b1001)
 		begin
 			// valE = valB+64'd8
-			control = 2b'00;
+			control = 2'b00;
 			a = valB;
 			b = 64'd8;
 			assign tempans = aluOut;
 			valE = tempans;
 		end
 		//pushq
-		else if(icode==4b'1010)
+		else if(icode==4'b1010)
 		begin
 			// valE = valB-64'd8
-			control = 2b'01;
+			control = 2'b01;
 			a = valB;
 			b = 64'd8;
 			assign tempans = aluOut;
 			valE = tempans;
 		end
 		//popq
-		else if(icode==4b'1011)
+		else if(icode==4'b1011)
 		begin
 			// valE = valB+64'd8
-			control = 2b'00;
+			control = 2'b00;
 			a = valB;
 			b = 64'd8;
 			assign tempans = aluOut;
