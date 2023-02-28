@@ -83,6 +83,12 @@ always@(*) begin
 	if(clk==1)
 	begin 
 		cnd = 0;
+			zflag = (aluOut==1'b0);
+			sflag = (aluOut<1'b0);
+			a_sf = (a<1'b0);
+			b_sf = (b<1'b0);
+			oflag = (a_sf==b_sf) && (sflag!=a_sf);
+
 		//cmovxx
 		if(icode==4'b0010)
 		begin
@@ -241,6 +247,7 @@ always@(*) begin
 			else if(ifun==4'b0100)
 			begin
 				Nin1 = zflag;
+				#2
 				if(Nout)
 				begin
 					cnd=1;

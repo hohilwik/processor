@@ -175,6 +175,7 @@ initial begin
 	$dumpfile("0_proc_wrapper.vcd");
 	//$monitor("instr=%b", fetch1.instr);
 	$monitor("clk=%d icode=%d ifun=%d rA=%d rB=%d r4=%d r5=%d valE=%d halt=%d\n", clk, icode, ifun, rA, rB, reg_mem4, reg_mem5, valE, status[2]);
+	$monitor("PC=", PC);
 	status[0] = 1'b1;
 	status[1] = 1'b0;
 	status[2] = 1'b0;
