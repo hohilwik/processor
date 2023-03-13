@@ -2487,7 +2487,7 @@ proc_mem[2047] = 8'h00;
 			instr_validity=1'b0;
 		end
 		
-		//$display("rA=%d, rB=%d, valP=%d", rA, rB, valP);
+		$display("rA=%d, rB=%d, valC=%x, valP=%d", rA, rB, valC, valP);
 		
 	
 	

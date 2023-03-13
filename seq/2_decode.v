@@ -119,6 +119,9 @@ module decode_ins(clk, cnd, icode, rA, rB, valA, valB, vflag, valE, valM, reg_me
     reg_mem12=reg_mem[12];
     reg_mem13=reg_mem[13];
     reg_mem14=reg_mem[14];
+	
+	$display("reg%d=%x, reg%d=%x", rA, reg_mem[rA], rB, reg_mem[rB]);
+	
   end
 
 endmodule

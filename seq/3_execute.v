@@ -7,7 +7,7 @@ module execute_ins(clk, icode, ifun, vflag, valA, valB, valC, valE, cnd, zflag, 
 	input clk; 
 	input [3:0] icode;
 	input [3:0] ifun;
-	output reg vflag;
+	input vflag;
 	input [63:0] valA;
 	input [63:0] valB;
 	input [63:0] valC;
@@ -83,11 +83,7 @@ always@(*) begin
 	if(clk==1)
 	begin 
 		cnd = 0;
-			zflag = (aluOut==1'b0);
-			sflag = (aluOut<1'b0);
-			a_sf = (a<1'b0);
-			b_sf = (b<1'b0);
-			oflag = (a_sf==b_sf) && (sflag!=a_sf);
+		
 
 		//cmovxx
 		if(icode==4'b0010)
@@ -189,12 +185,12 @@ always@(*) begin
 		//mrmovq
 		else if(icode==4'b0101)
 		begin
-			 valE = valB+valC;
-			//control = 2'b00;
-			//a = valC;
-			//b = valB;
-			//assign tempans = aluOut;
-			//valE = tempans;
+			// valE = valB+valC;
+			control = 2'b00;
+			a = valC;
+			b = valB;
+			assign tempans = aluOut;
+			valE = tempans;
 		end
 		//OP
 		else if(icode==4'b0110)
@@ -325,6 +321,15 @@ always@(*) begin
 			b = 64'd8;
 			assign tempans = aluOut;
 			valE = tempans;
+		end
+		
+		if(clk==1)
+		begin
+			zflag = (aluOut==1'b0);
+			sflag = (aluOut<1'b0);
+			a_sf = (a<1'b0);
+			b_sf = (b<1'b0);
+			oflag = (a_sf==b_sf) && (sflag!=a_sf);
 		end
 		
 	end
