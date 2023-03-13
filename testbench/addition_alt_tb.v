@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-`include "/home/hohilwik/Code/assignment-1-alu-miss-47/alu/ksa_alt/KoggeStone32Bit.v";
+`include "/mnt/c/Users/shant/Desktop/Data/Code/processor/seq/alu/ksa_alt/KoggeStone32Bit.v";
 
 module addition_alt_tb;
 
