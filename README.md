@@ -1,6 +1,20 @@
 # Y86 processor
 
-## Sequential
+## Sequential and Piped
+
+# To run
+
+```
+cd seq
+iverilog -g2005-sv -o seq 0_proc_wrapper.v
+vvp seq
+```
+
+```
+cd pipe
+iverilog -g2005-sv -o pipe 0_wrapper.v
+vvp pipe
+```
 
 # 1_fetch
 
