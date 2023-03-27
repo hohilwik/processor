@@ -1,26 +1,5 @@
 `timescale 1ns / 1ps
 
-////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer:
-//
-// Create Date:   00:55:47 04/26/2018
-// Design Name:   KoggeStone32Bit
-// Module Name:   /home/ise/EE638HW4_2017701177/KoggeStone32Bit_tb.v
-// Project Name:  EE638HW4_2017701177
-// Target Device:  
-// Tool versions:  
-// Description: 
-//
-// Verilog Test Fixture created by ISE for module: KoggeStone32Bit
-//
-// Dependencies:
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-////////////////////////////////////////////////////////////////////////////////
 
 module KoggeStone32Bit_tb;
 

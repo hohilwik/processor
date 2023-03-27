@@ -1,11 +1,11 @@
 `timescale 1ns / 1ps
 
-`include "/home/hohilwik/Code/assignment-1-alu-miss-47/alu/ksa_alt/BUFFER.v"
-`include "/home/hohilwik/Code/assignment-1-alu-miss-47/alu/ksa_alt/BitwiseG.v"
-`include "/home/hohilwik/Code/assignment-1-alu-miss-47/alu/ksa_alt/BitwiseP.v"
-`include "/home/hohilwik/Code/assignment-1-alu-miss-47/alu/ksa_alt/BlackCell.v"
-`include "/home/hohilwik/Code/assignment-1-alu-miss-47/alu/ksa_alt/GrayCell.v"
-`include "/home/hohilwik/Code/assignment-1-alu-miss-47/alu/ksa_alt/SumGen.v"
+`include "./ksa_alt/BUFFER.v"
+`include "./ksa_alt/BitwiseG.v"
+`include "./ksa_alt/BitwiseP.v"
+`include "./ksa_alt/BlackCell.v"
+`include "./ksa_alt/GrayCell.v"
+`include "./ksa_alt/SumGen.v"
 
 module KoggeStone32Bit(
 		input [31:0] A,

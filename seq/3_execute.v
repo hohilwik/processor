@@ -20,36 +20,59 @@ module execute_ins(clk, icode, ifun, vflag, valA, valB, valC, valE, cnd, zflag, 
 	
 reg a_sf;
 reg b_sf;
-	
-always @(*)
-	begin
-		if(clk==1 && vflag==1)
-		begin
-			//I assume zflag is implemented as log64 levels of OR gates
-			//sflag is just checking the sign bit
-			//oflag is AND-OR logic with sign bits of A and B
-			zflag = (aluOut==1'b0);
-			sflag = (aluOut<1'b0);
-			a_sf = (a<1'b0);
-			b_sf = (b<1'b0);
-			oflag = (a_sf==b_sf) && (sflag!=a_sf);
-			// implement this with NOT-XOR, XOR, AND
-		end
-	end
-
-
-//initial begin
-	//zflag = 0;
-	//sflag = 0;
-	//oflag = 0;
-//end
+integer aOut;
 
 reg signed [63:0] tempans;
 reg [1:0] control;
 reg signed [63:0] a;
 reg signed [63:0] b;
-wire signed [63:0] aluOut;
+reg signed [63:0] aluOut;
 wire overflow;
+
+	
+always @(*)
+	begin
+		if(clk==1 && vflag==1)
+		begin
+			if(icode==4'b0110) begin
+			//I assume zflag is implemented as log64 levels of OR gates
+			//sflag is just checking the sign bit
+			//oflag is AND-OR logic with sign bits of A and B
+			
+				if(ifun==4'b0000) 
+				begin
+					aOut = a+b;
+				end
+				if(ifun==4'b0001) 
+				begin
+					aOut = a-b;
+				end
+				if(ifun==4'b0010) 
+				begin
+					aOut = a&b;
+				end
+				if(ifun==4'b0011) 
+				begin
+					aOut = a^b;
+				end
+				
+			zflag = (aOut==1'b0);
+			sflag = (aOut<1'b0);
+			a_sf = (a<1'b0);
+			b_sf = (b<1'b0);
+			oflag = (a_sf==b_sf) && (sflag!=a_sf);
+			// implement this with NOT-XOR, XOR, AND
+			end
+		end
+	end
+
+
+initial begin
+	zflag = 0;
+	sflag = 0;
+	oflag = 0;
+end
+
 
 alu ALU1(
 	.operation(control),
@@ -74,9 +97,10 @@ initial begin
 	zflag = 0;
 	sflag = 0;
 	oflag = 0;
-	control=2'b00;
+	//if(control==2'b00) begin
 	a = 64'b0;
 	b = 64'b0;
+	//end
 end
 
 always@(*) begin
@@ -137,7 +161,7 @@ always@(*) begin
 			begin
 				Xin1 = sflag;
 				Xin2 = oflag;
-				#2
+				//#2
 				Nin1 = Xout;
 				if(Nout)
 				begin
@@ -150,7 +174,7 @@ always@(*) begin
 			// !(sflag^oflag)&&(!zflag)
 				Xin1 = sflag;
 				Xin2 = oflag;
-				#2
+				//#2
 				Nin1 = Xout;
 				if(Nout)
 				begin
@@ -165,7 +189,7 @@ always@(*) begin
 		//irmovq
 		else if(icode==4'b0011)
 		begin
-			//valE = valC+64'd0
+			//valE = valC+64'd0;
 			control = 2'b00;
 			a = valC;
 			b = 64'd0;
@@ -175,17 +199,17 @@ always@(*) begin
 		//rmmovq
 		else if(icode==4'b0100)
 		begin
-			 valE = valB+valC;
-			//control = 2'b00;
-			//a = valC;
-			//b = valB;
-			//assign tempans = aluOut;
-			//valE = tempans;
+			//valE = valB+valC;
+			control = 2'b00;
+			a = valC;
+			b = valB;
+			assign tempans = aluOut;
+			valE = tempans;
 		end
 		//mrmovq
 		else if(icode==4'b0101)
 		begin
-			// valE = valB+valC;
+			//valE = valB+valC;
 			control = 2'b00;
 			a = valC;
 			b = valB;
@@ -200,6 +224,23 @@ always@(*) begin
 			b = valA;
 			assign tempans = aluOut;
 			valE = tempans;
+			/*
+			if(ifun==4'b0000) 
+			begin
+				valE = a+b;
+			end
+			if(ifun==4'b0001) 
+			begin
+				valE = a-b;
+			end
+			if(ifun==4'b0010) 
+			begin
+				valE = a&b;
+			end
+			if(ifun==4'b0011) 
+			begin
+				valE = a^b;
+			end*/
 		end
 		//jXX
 		else if(icode==4'b0111)
@@ -213,6 +254,9 @@ always@(*) begin
 			else if(ifun==4'b0001)
 			begin
 				// (sflag^oflag)||oflag
+				//if( (sflag^oflag)||oflag ) begin
+				//	cnd = 1;
+				//end
 				Xin1 = sflag;
 				Xin2 = oflag;
 				if(Xout || zflag)
@@ -243,7 +287,7 @@ always@(*) begin
 			else if(ifun==4'b0100)
 			begin
 				Nin1 = zflag;
-				#2
+				//#2
 				if(Nout)
 				begin
 					cnd=1;
@@ -255,7 +299,7 @@ always@(*) begin
 				// !(sflag^oflag)
 				Xin1 = sflag;
 				Xin2 = oflag;
-				#2
+				//#2
 				Nin1 = Xout;
 				if(Nout)
 				begin
@@ -268,7 +312,7 @@ always@(*) begin
 				// !(sflaf^oflag) && (!zflag)
 				Xin1 = sflag;
 				Xin2 = oflag;
-				#2
+				//#2
 				Nin1 = Xout;
 				if(Nout)
 				begin
@@ -285,17 +329,17 @@ always@(*) begin
 		//call
 		else if(icode==4'b1000)
 		begin
-			 valE = valB-64'd8;
-			//control = 2'b01;
-			//a = valB;
-			//b = 64'd8;
-			//assign tempans = aluOut;
-			//valE = tempans;
+			//valE = valB-64'd8;
+			control = 2'b01;
+			a = valB;
+			b = 64'd8;
+			assign tempans = aluOut;
+			valE = tempans;
 		end
 		//ret
 		else if(icode==4'b1001)
 		begin
-			// valE = valB+64'd8
+			//valE = valB+64'd8;
 			control = 2'b00;
 			a = valB;
 			b = 64'd8;
@@ -305,7 +349,7 @@ always@(*) begin
 		//pushq
 		else if(icode==4'b1010)
 		begin
-			// valE = valB-64'd8
+			//valE = valB-64'd8;
 			control = 2'b01;
 			a = valB;
 			b = 64'd8;
@@ -315,7 +359,7 @@ always@(*) begin
 		//popq
 		else if(icode==4'b1011)
 		begin
-			// valE = valB+64'd8
+			//valE = valB+64'd8;
 			control = 2'b00;
 			a = valB;
 			b = 64'd8;
@@ -323,14 +367,6 @@ always@(*) begin
 			valE = tempans;
 		end
 		
-		if(clk==1)
-		begin
-			zflag = (aluOut==1'b0);
-			sflag = (aluOut<1'b0);
-			a_sf = (a<1'b0);
-			b_sf = (b<1'b0);
-			oflag = (a_sf==b_sf) && (sflag!=a_sf);
-		end
 		
 	end
 end
